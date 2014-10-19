@@ -1,12 +1,24 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class WrapAround : MonoBehaviour
 {
     [SerializeField]
-    Camera cam;
-    [SerializeField]
     float offScreenPixels;
+    Camera cam;
+    Action<Vector3> onWrapAction;
+
+
+    void Awake()
+    {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    public void AddOnWrapAction(Action<Vector3> callback)
+    {
+        onWrapAction += callback;
+    }
 
     void Update()
     {
@@ -37,7 +49,11 @@ public class WrapAround : MonoBehaviour
             Vector3 newPosition = cam.ScreenToWorldPoint(screenPos);
             Vector3 translation = newPosition - transform.position;
             transform.position = newPosition;
-            gameObject.SendMessage("WrapToNewPosition", translation);
+            if(onWrapAction != null)
+            {
+                onWrapAction(translation);
+            }
+            
         }
     }
 }
