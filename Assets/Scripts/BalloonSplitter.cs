@@ -46,12 +46,20 @@ public class BalloonSplitter : MonoBehaviour
             newAnchor.SetDirection(Quaternion.AngleAxis(rotation, gameObject.transform.forward) * impactDirection);
 
             // Split balloons by half
+            Color newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
+            Debug.Log(newColor);
             int half = list.Count / 2;
             for (int i = 0; i < half; i++)
             {
                 list[i].gameObject.GetComponent<SpringJoint2D>().connectedBody = newAnchor.gameObject.GetComponent<Rigidbody2D>();
                 newAnchor.AddBalloon(list[i]);
                 anchor.RemoveBalloon(list[i]);
+            }
+
+            // Apply different color to balloons on original anchor
+            for (int i = 0; i < anchor.GetBalloons().Count; i++)
+            {
+                list[i].GetComponent<SpriteRenderer>().color = newColor;
             }
 
             // Award player 1 point
