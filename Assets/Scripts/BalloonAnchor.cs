@@ -6,8 +6,8 @@ public class BalloonAnchor : MonoBehaviour
 {
     
     [SerializeField]
-    float speedIncrement = 0.5f;
-    public float moveSpeed = 1f;
+    float maxSpeed = 6f;
+    public float speed = 1f;
     public Vector3 direction;
 
     [SerializeField]
@@ -26,7 +26,7 @@ public class BalloonAnchor : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
+        gameObject.transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 
     public void WrapAroundBalloons(Vector3 translation)
@@ -59,6 +59,22 @@ public class BalloonAnchor : MonoBehaviour
 
     public void IncreaseSpeed()
     {
-        moveSpeed += speedIncrement;
+        if (speed < maxSpeed)
+        {
+            // Calculates how much speed should be increased based on current size of balloonList
+            int iterations = 0;
+            float balloons = balloonList.Count;
+            while (balloons > 1)
+            {
+                balloons = balloons / 2;
+                iterations++;
+            }
+            if(iterations > 0)
+            {
+                float speedDiff = maxSpeed - speed;
+                float increase = speedDiff / iterations;
+                speed += increase;
+            }
+        }
     }
 }

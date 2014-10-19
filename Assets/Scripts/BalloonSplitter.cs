@@ -33,19 +33,20 @@ public class BalloonSplitter : MonoBehaviour
 
             if(list.Count > 1)
             {
+
+                // Increase speed for all balloons on this anchor before splitting
+                anchor.IncreaseSpeed();
+
                 // Initialize new BalloonAnchor
                 BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
-                newAnchor.moveSpeed = anchor.moveSpeed;
+                newAnchor.speed = anchor.speed;
                 newAnchor.direction = anchor.direction;
-
+                
                 // Set new directions for both BalloonAnchors
                 anchor.RotateDirection(30);
                 newAnchor.RotateDirection(-30);
 
-                // Increase speed for both BalloonAnchors
-                anchor.IncreaseSpeed();
-                newAnchor.IncreaseSpeed();
-
+                // Split balloons by half
                 int half = list.Count / 2;
                 for (int i = 0; i < half; i++)
                 {
