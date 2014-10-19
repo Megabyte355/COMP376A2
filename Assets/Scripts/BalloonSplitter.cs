@@ -4,9 +4,15 @@ using System.Collections.Generic;
 
 public class BalloonSplitter : MonoBehaviour
 {
+
+    [SerializeField]
+    float maxAngleSpread;
     [SerializeField]
     GameObject anchorPrefab;
     List<BalloonAnchor> anchors;
+
+    public int pointsForSplitting = 1;
+    public int pointsForPopping = 2;
 
     void Awake()
     {
@@ -19,10 +25,49 @@ public class BalloonSplitter : MonoBehaviour
         // Test
         if (Input.GetButtonDown("Fire1"))
         {
-            SplitBalloonsTest();
+            //SplitBalloonsTest();
+            SplitBalloons(new Vector3(0, 1, 0), anchors[0]);
         }
     }
 
+    public void SplitBalloons(Vector3 impactDirection, BalloonAnchor anchor)
+    {
+        List<Balloon> list = anchor.GetBalloons();
+
+        if (list.Count > 1)
+        {
+            // Initialize new BalloonAnchor
+            BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
+            newAnchor.SetSpeed(anchor.GetSpeed());
+
+            // Set new directions for both BalloonAnchors
+            float rotation = Random.Range(-maxAngleSpread, maxAngleSpread);
+            anchor.RotateDirection(rotation);
+            newAnchor.SetDirection(Quaternion.AngleAxis(rotation, gameObject.transform.forward) * impactDirection);
+
+            // Split balloons by half
+            int half = list.Count / 2;
+            for (int i = 0; i < half; i++)
+            {
+                list[i].gameObject.GetComponent<SpringJoint2D>().connectedBody = newAnchor.gameObject.GetComponent<Rigidbody2D>();
+                newAnchor.AddBalloon(list[i]);
+                anchor.RemoveBalloon(list[i]);
+            }
+
+            // Award player 1 point
+        }
+        else
+        {
+            // Destroy balloon
+            Debug.Log("Not enough Balloons");
+
+            // Award player 2 points
+        }
+    }
+
+
+
+    // TODO: DELETE THIS ONCE DONE
     public void SplitBalloonsTest()
     {
         // ==================== Test balloon splitting ====================
@@ -34,13 +79,16 @@ public class BalloonSplitter : MonoBehaviour
             if(list.Count > 1)
             {
 
-                // Increase speed for all balloons on this anchor before splitting
-                anchor.IncreaseSpeed();
+                //// Increase speed for all balloons on this anchor before splitting
+                //anchor.IncreaseSpeed();
+                anchor.SetSpeed(anchor.GetSpeed() + 1f);
 
                 // Initialize new BalloonAnchor
                 BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
-                newAnchor.speed = anchor.speed;
-                newAnchor.direction = anchor.direction;
+                newAnchor.SetSpeed(anchor.GetSpeed());
+
+                //newAnchor.speed = anchor.speed;
+                //newAnchor.direction = anchor.direction;
                 
                 // Set new directions for both BalloonAnchors
                 anchor.RotateDirection(30);

@@ -4,29 +4,23 @@ using System.Collections.Generic;
 
 public class BalloonAnchor : MonoBehaviour
 {
-    
-    [SerializeField]
-    float maxSpeed = 6f;
-    public float speed = 1f;
-    public Vector3 direction;
 
     [SerializeField]
     List<Balloon> balloonList;
+    BalloonSplitter splitter;
+    LinearMovement movement;
 
     void Awake()
     {
         balloonList = new List<Balloon>();
         gameObject.GetComponent<WrapAround>().AddOnWrapAction(WrapAroundBalloons);
+        movement = gameObject.GetComponent<LinearMovement>();
     }
 
     void Start()
     {
-        GameObject.FindGameObjectWithTag("BalloonSplitter").GetComponent<BalloonSplitter>().AddAnchor(this);
-    }
-
-    void Update()
-    {
-        gameObject.transform.Translate(direction.normalized * speed * Time.deltaTime);
+        splitter = GameObject.FindGameObjectWithTag("BalloonSplitter").GetComponent<BalloonSplitter>();
+        splitter.AddAnchor(this);
     }
 
     public void WrapAroundBalloons(Vector3 translation)
@@ -52,29 +46,57 @@ public class BalloonAnchor : MonoBehaviour
         return balloonList;
     }
 
-    public void RotateDirection(float degrees)
+    //public void IncreaseSpeed()
+    //{
+    //    if (speed < maxSpeed)
+    //    {
+    //        // Calculates how much speed should be increased based on current size of balloonList
+    //        int iterations = 0;
+    //        float balloons = balloonList.Count;
+    //        while (balloons > 1)
+    //        {
+    //            balloons = balloons / 2;
+    //            iterations++;
+    //        }
+    //        if(iterations > 0)
+    //        {
+    //            float speedDiff = maxSpeed - speed;
+    //            float increase = speedDiff / iterations;
+    //            speed += increase;
+    //        }
+    //    }
+    //}
+
+    // ------------------------ Delegates to BalloonSplitter ------------------------
+    public void SplitBalloons(Vector3 impactDirection)
     {
-        direction = Quaternion.AngleAxis(degrees, gameObject.transform.forward) * direction;
+        splitter.SplitBalloons(impactDirection, this);
     }
 
-    public void IncreaseSpeed()
+
+    // ------------------------ Delegates to LinearMovement ------------------------
+    public float GetSpeed()
     {
-        if (speed < maxSpeed)
-        {
-            // Calculates how much speed should be increased based on current size of balloonList
-            int iterations = 0;
-            float balloons = balloonList.Count;
-            while (balloons > 1)
-            {
-                balloons = balloons / 2;
-                iterations++;
-            }
-            if(iterations > 0)
-            {
-                float speedDiff = maxSpeed - speed;
-                float increase = speedDiff / iterations;
-                speed += increase;
-            }
-        }
+        return movement.speed;
+    }
+
+    public void SetSpeed(float s)
+    {
+        movement.speed = s;
+    }
+
+    public Vector3 GetDirection()
+    {
+        return movement.direction;
+    }
+
+    public void SetDirection(Vector3 d)
+    {
+        movement.direction = d;
+    }
+
+    public void RotateDirection(float degrees)
+    {
+        movement.RotateDirection(degrees);
     }
 }

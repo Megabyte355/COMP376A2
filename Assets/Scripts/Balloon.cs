@@ -3,15 +3,27 @@ using System.Collections;
 
 public class Balloon : MonoBehaviour
 {
+
+    BalloonAnchor anchor;
+
     void Start()
     {
         // Connect self to the BalloonSplitter in the connected RigidBody's GameObject
-        gameObject.GetComponent<SpringJoint2D>().connectedBody.GetComponent<BalloonAnchor>().AddBalloon(this);
+        anchor = gameObject.GetComponent<SpringJoint2D>().connectedBody.GetComponent<BalloonAnchor>();
+        anchor.AddBalloon(this);
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        // destroy dart
-        // tell splitter to split
+        GameObject obj = col.gameObject;
+        if(obj.tag == "Dart")
+        {
+            // Trigger balloon splitting
+            anchor.SplitBalloons(obj.GetComponent<LinearMovement>().direction);
+
+            // Destroy the dart
+            Destroy(obj);
+        }
+        
     }
 }
