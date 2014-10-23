@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Balloon : MonoBehaviour
 {
-
     BalloonAnchor anchor;
 
     void Start()
@@ -16,14 +15,19 @@ public class Balloon : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         GameObject obj = col.gameObject;
-        if(obj.tag == "Dart")
+        if (obj.tag == "Dart")
         {
             // Trigger balloon splitting
-            anchor.SplitBalloons(obj.GetComponent<LinearMovement>().direction);
+            anchor.SplitBalloons(obj.GetComponent<LinearMovement>().GetWorldDirection());
 
             // Destroy the dart
             Destroy(obj);
         }
-        
+
+    }
+
+    public void SetAnchor(BalloonAnchor a)
+    {
+        anchor = a;
     }
 }

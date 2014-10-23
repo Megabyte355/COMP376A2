@@ -4,31 +4,32 @@ using System.Collections.Generic;
 
 public class BalloonSplitter : MonoBehaviour
 {
-
     [SerializeField]
-    float maxAngleSpread;
+    float minAngleChange;
+    [SerializeField]
+    float maxAngleChange;
     [SerializeField]
     GameObject anchorPrefab;
-    List<BalloonAnchor> anchors;
+    //List<BalloonAnchor> anchors;
 
     public int pointsForSplitting = 1;
     public int pointsForPopping = 2;
 
-    void Awake()
-    {
-        anchors = new List<BalloonAnchor>();
-    }
+    //void Awake()
+    //{
+    //    anchors = new List<BalloonAnchor>();
+    //}
 
-    void Update()
-    {
+    //void Update()
+    //{
 
-        //// Test
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    //SplitBalloonsTest();
-        //    SplitBalloons(new Vector3(0, 1, 0), anchors[0]);
-        //}
-    }
+    //    // Test
+    //    if (Input.GetButtonDown("Fire1"))
+    //    {
+    //        //SplitBalloonsTest();
+    //        SplitBalloons(new Vector3(0, 1, 0), anchors[0]);
+    //    }
+    //}
 
     public void SplitBalloons(Vector3 impactDirection, BalloonAnchor anchor)
     {
@@ -36,22 +37,26 @@ public class BalloonSplitter : MonoBehaviour
 
         if (list.Count > 1)
         {
-            // Initialize new BalloonAnchor
+            // Increase speed
+            anchor.IncreaseSpeed();
+
+            // Initialize new BalloonAnchor with speed of original anchor
             BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
             newAnchor.SetSpeed(anchor.GetSpeed());
 
             // Set new directions for both BalloonAnchors
-            float rotation = Random.Range(-maxAngleSpread, maxAngleSpread);
-            anchor.RotateDirection(rotation);
-            newAnchor.SetDirection(Quaternion.AngleAxis(rotation, gameObject.transform.forward) * impactDirection);
+            float rotation = Random.Range(minAngleChange, maxAngleChange);
+            float rotation2 = Random.Range(minAngleChange, maxAngleChange);
+            anchor.SetDirection(Quaternion.AngleAxis(-rotation, gameObject.transform.forward) * impactDirection);
+            newAnchor.SetDirection(Quaternion.AngleAxis(rotation2, gameObject.transform.forward) * impactDirection);
 
             // Split balloons by half
             Color newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
-            Debug.Log(newColor);
             int half = list.Count / 2;
             for (int i = 0; i < half; i++)
             {
                 list[i].gameObject.GetComponent<SpringJoint2D>().connectedBody = newAnchor.gameObject.GetComponent<Rigidbody2D>();
+                list[i].SetAnchor(newAnchor);
                 newAnchor.AddBalloon(list[i]);
                 anchor.RemoveBalloon(list[i]);
             }
@@ -67,7 +72,9 @@ public class BalloonSplitter : MonoBehaviour
         else
         {
             // Destroy balloon
-            Debug.Log("Not enough Balloons");
+            Destroy(anchor.gameObject);
+            Destroy(list[0].gameObject);
+            list.Clear();
 
             // Award player 2 points
         }
@@ -75,52 +82,52 @@ public class BalloonSplitter : MonoBehaviour
 
 
 
-    // TODO: DELETE THIS ONCE DONE
-    public void SplitBalloonsTest()
-    {
-        // ==================== Test balloon splitting ====================
+    //// TODO: DELETE THIS ONCE DONE
+    //public void SplitBalloonsTest()
+    //{
+    //    // ==================== Test balloon splitting ====================
 
-        foreach (BalloonAnchor anchor in anchors)
-        {
-            List<Balloon> list = anchor.GetBalloons();
+    //    foreach (BalloonAnchor anchor in anchors)
+    //    {
+    //        List<Balloon> list = anchor.GetBalloons();
 
-            if(list.Count > 1)
-            {
+    //        if (list.Count > 1)
+    //        {
 
-                //// Increase speed for all balloons on this anchor before splitting
-                //anchor.IncreaseSpeed();
-                anchor.SetSpeed(anchor.GetSpeed() + 1f);
+    //            //// Increase speed for all balloons on this anchor before splitting
+    //            //anchor.IncreaseSpeed();
+    //            anchor.SetSpeed(anchor.GetSpeed() + 1f);
 
-                // Initialize new BalloonAnchor
-                BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
-                newAnchor.SetSpeed(anchor.GetSpeed());
+    //            // Initialize new BalloonAnchor
+    //            BalloonAnchor newAnchor = (Instantiate(anchorPrefab, anchor.transform.position, Quaternion.identity) as GameObject).GetComponent<BalloonAnchor>();
+    //            newAnchor.SetSpeed(anchor.GetSpeed());
 
-                //newAnchor.speed = anchor.speed;
-                //newAnchor.direction = anchor.direction;
-                
-                // Set new directions for both BalloonAnchors
-                anchor.RotateDirection(30);
-                newAnchor.RotateDirection(-30);
+    //            //newAnchor.speed = anchor.speed;
+    //            //newAnchor.direction = anchor.direction;
 
-                // Split balloons by half
-                int half = list.Count / 2;
-                for (int i = 0; i < half; i++)
-                {
-                    list[i].gameObject.GetComponent<SpringJoint2D>().connectedBody = newAnchor.gameObject.GetComponent<Rigidbody2D>();
-                    newAnchor.AddBalloon(list[i]);
-                    anchor.RemoveBalloon(list[i]);
-                }
-            }
-            else
-            {
-                // Destroy balloon
-                Debug.Log("Not enough Balloons");
-            }
-        }
-    }
+    //            // Set new directions for both BalloonAnchors
+    //            anchor.RotateDirection(30);
+    //            newAnchor.RotateDirection(-30);
 
-    public void AddAnchor(BalloonAnchor anchor)
-    {
-        anchors.Add(anchor);
-    }
+    //            // Split balloons by half
+    //            int half = list.Count / 2;
+    //            for (int i = 0; i < half; i++)
+    //            {
+    //                list[i].gameObject.GetComponent<SpringJoint2D>().connectedBody = newAnchor.gameObject.GetComponent<Rigidbody2D>();
+    //                newAnchor.AddBalloon(list[i]);
+    //                anchor.RemoveBalloon(list[i]);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            // Destroy balloon
+    //            Debug.Log("Not enough Balloons");
+    //        }
+    //    }
+    //}
+
+    //public void AddAnchor(BalloonAnchor anchor)
+    //{
+    //    anchors.Add(anchor);
+    //}
 }

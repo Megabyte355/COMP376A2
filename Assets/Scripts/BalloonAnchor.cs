@@ -20,7 +20,6 @@ public class BalloonAnchor : MonoBehaviour
     void Start()
     {
         splitter = GameObject.FindGameObjectWithTag("BalloonSplitter").GetComponent<BalloonSplitter>();
-        splitter.AddAnchor(this);
     }
 
     public void WrapAroundBalloons(Vector3 translation)
@@ -83,6 +82,11 @@ public class BalloonAnchor : MonoBehaviour
     public void SetSpeed(float s)
     {
         movement.speed = s;
+    }
+
+    public void IncreaseSpeed()
+    {
+        movement.IncreaseSpeed();
     }
 
     public Vector3 GetDirection()
