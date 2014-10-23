@@ -10,6 +10,7 @@ public class DartGun : MonoBehaviour
     [SerializeField]
     float dartCooldown = 0.5f;
     float cooldownTimer;
+    float angle;
     bool cooldownActive = false;
     Camera cam;
 
@@ -22,7 +23,8 @@ public class DartGun : MonoBehaviour
     {
         // Rotate Dart Gun
         Vector3 gunToMouse = Input.mousePosition - cam.WorldToScreenPoint(transform.position);
-        transform.rotation = Quaternion.AngleAxis(Vector3.Angle(gunToMouse.normalized, Vector3.right), gunToMouse.y > 0 ? Vector3.forward : -Vector3.forward);
+        angle = Vector3.Angle(gunToMouse.normalized, Vector3.right);
+        transform.rotation = Quaternion.AngleAxis(angle, gunToMouse.y > 0 ? Vector3.forward : -Vector3.forward);
 
         // Calculate cooldown
         if(cooldownActive)
@@ -45,5 +47,10 @@ public class DartGun : MonoBehaviour
             Vector3 dartSpawn = transform.position + transform.right * dartSpawnOffset;
             Instantiate(dartPrefab, dartSpawn, transform.rotation);
         }
+    }
+
+    public float GetAngle()
+    {
+        return angle;
     }
 }

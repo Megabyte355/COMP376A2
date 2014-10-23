@@ -84,6 +84,7 @@ GameObject:
   - 4: {fileID: 736060604}
   - 114: {fileID: 736060603}
   - 114: {fileID: 736060605}
+  - 61: {fileID: 736060606}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -130,6 +131,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offScreenPixels: 10
+--- !u!61 &736060606
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736060602}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .579999983, y: 1.10000002}
+  m_Center: {x: 0, y: .150000006}
 --- !u!1 &1256346627
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +166,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1256346627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .100000001, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 736060604}
@@ -205,6 +217,7 @@ GameObject:
   - 4: {fileID: 1979631203}
   - 212: {fileID: 1979631202}
   - 95: {fileID: 1979631201}
+  - 114: {fileID: 1979631204}
   m_Layer: 0
   m_Name: Jetman
   m_TagString: Untagged
@@ -261,6 +274,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 736060604}
   m_RootOrder: 0
+--- !u!114 &1979631204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979631200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bdc10f8ec4ab14e82dfb83f712f2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dartGun: {fileID: 1256346630}
 --- !u!1 &2105370875
 GameObject:
   m_ObjectHideFlags: 0
