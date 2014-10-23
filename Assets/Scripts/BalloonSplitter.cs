@@ -22,12 +22,12 @@ public class BalloonSplitter : MonoBehaviour
     void Update()
     {
 
-        // Test
-        if (Input.GetButtonDown("Fire1"))
-        {
-            //SplitBalloonsTest();
-            SplitBalloons(new Vector3(0, 1, 0), anchors[0]);
-        }
+        //// Test
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    //SplitBalloonsTest();
+        //    SplitBalloons(new Vector3(0, 1, 0), anchors[0]);
+        //}
     }
 
     public void SplitBalloons(Vector3 impactDirection, BalloonAnchor anchor)
