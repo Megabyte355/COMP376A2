@@ -30,6 +30,10 @@ public class Progress : MonoBehaviour
     {
         progress = (int)(((float)currentBalloonCount / (float)totalBalloonCount) * 100f);
         progressTextMesh.text = "Progress: " + (100 - progress) + "%";
+
+
+        // 80 -> speed up
+        // 30, 60, 90 -> hot air balloon
     }
 
     public void DecrementBalloonCount()
@@ -39,6 +43,5 @@ public class Progress : MonoBehaviour
         {
             // YOU WIN!!!
         }
-
     }
 }

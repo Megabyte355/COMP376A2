@@ -67,9 +67,9 @@ public class BalloonAnchor : MonoBehaviour
     //}
 
     // ------------------------ Delegates to BalloonSplitter ------------------------
-    public void SplitBalloons(Vector3 impactDirection)
+    public void SplitBalloons(Vector3 impactDirection, Balloon affectedBalloon)
     {
-        splitter.SplitBalloons(impactDirection, this);
+        splitter.SplitBalloons(impactDirection, this, affectedBalloon);
     }
 
 

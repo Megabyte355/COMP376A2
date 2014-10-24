@@ -15,13 +15,19 @@ public class BalloonSplitter : MonoBehaviour
     Score score;
     [SerializeField]
     Progress progress;
+    [SerializeField]
+    AudioSource balloonPopSound;
 
-    public void SplitBalloons(Vector3 impactDirection, BalloonAnchor anchor)
+    public void SplitBalloons(Vector3 impactDirection, BalloonAnchor anchor, Balloon affectedBalloon)
     {
         List<Balloon> list = anchor.GetBalloons();
 
         if (list.Count > 1)
         {
+            // Remove and destroy the balloon colliding with dart
+            anchor.RemoveBalloon(affectedBalloon);
+            Destroy(affectedBalloon.gameObject);
+
             // Increase speed
             anchor.IncreaseSpeed();
 
@@ -58,16 +64,19 @@ public class BalloonSplitter : MonoBehaviour
         }
         else
         {
-            // Destroy balloon
+            // Destroy last balloon and anchor
             Destroy(anchor.gameObject);
             Destroy(list[0].gameObject);
             list.Clear();
 
             // Award player points (handled by Score.cs)
-            score.BalloonPopReward();
-
-            // Update balloon progress
-            progress.DecrementBalloonCount();
+            score.BalloonPopReward();    
         }
+
+        // Update balloon progress
+        progress.DecrementBalloonCount();
+
+        // Play balloon burst sound
+        balloonPopSound.Play();
     }
 }

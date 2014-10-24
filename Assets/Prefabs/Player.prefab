@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7700d6b591390574e8bcd867dbdfb991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blowSound: {fileID: 0}
   dartPrefab: {fileID: 100000, guid: 4c2022bf4e42f9240b521f26d77333e3, type: 2}
   dartSpawnOffset: 1
   dartCooldown: .349999994

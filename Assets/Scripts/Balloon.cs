@@ -17,11 +17,11 @@ public class Balloon : MonoBehaviour
         GameObject obj = col.gameObject;
         if (obj.tag == "Dart")
         {
-            // Trigger balloon splitting
-            anchor.SplitBalloons(obj.GetComponent<LinearMovement>().GetWorldDirection());
-
             // Destroy the dart
             Destroy(obj);
+
+            // Trigger balloon splitting
+            anchor.SplitBalloons(obj.GetComponent<LinearMovement>().GetWorldDirection(), this);
         }
 
     }

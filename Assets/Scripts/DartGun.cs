@@ -4,6 +4,8 @@ using System.Collections;
 public class DartGun : MonoBehaviour
 {
     [SerializeField]
+    AudioSource blowSound;
+    [SerializeField]
     GameObject dartPrefab;
     [SerializeField]
     float dartSpawnOffset = 1.0f;
@@ -46,6 +48,7 @@ public class DartGun : MonoBehaviour
             cooldownActive = true;
             Vector3 dartSpawn = transform.position + transform.right * dartSpawnOffset;
             Instantiate(dartPrefab, dartSpawn, transform.rotation);
+            blowSound.Play();
         }
     }
 
