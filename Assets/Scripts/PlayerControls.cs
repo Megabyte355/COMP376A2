@@ -15,9 +15,11 @@ public class PlayerControls : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0, 0) + new Vector3(0, vertical, 0);
         gameObject.transform.Translate(direction * speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             dartGun.FireDart();
         }
+
+        // TODO: Fire2 for special mode
     }
 }
