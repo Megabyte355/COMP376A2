@@ -6,7 +6,7 @@ public class LinearMovement : MonoBehaviour
     public float speed;
     public float speedIncrement;
     public Vector3 direction;
-    
+
     void Update()
     {
         gameObject.transform.Translate(direction.normalized * speed * Time.deltaTime);

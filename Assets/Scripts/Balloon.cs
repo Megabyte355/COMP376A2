@@ -23,7 +23,6 @@ public class Balloon : MonoBehaviour
             // Trigger balloon splitting
             anchor.SplitBalloons(obj.GetComponent<LinearMovement>().GetWorldDirection(), this);
         }
-
     }
 
     public void SetAnchor(BalloonAnchor a)

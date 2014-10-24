@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField]
     Camera cam;
     [SerializeField]
     int topOffSetPixels;
@@ -21,6 +20,7 @@ public class Score : MonoBehaviour
     
     void Start()
     {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffSetPixels, Screen.height - topOffSetPixels, 10));
         textMesh = gameObject.GetComponent<TextMesh>();
     }
