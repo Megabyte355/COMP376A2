@@ -4,7 +4,7 @@ using System.Collections;
 public class HotAirBalloon : MonoBehaviour
 {
     [SerializeField]
-    GameObject player;
+    Player player;
     [SerializeField]
     GameObject waterBalloonPrefab;
     [SerializeField]
@@ -15,11 +15,13 @@ public class HotAirBalloon : MonoBehaviour
     float cooldownTimer;
     bool cooldownActive = false;
     Camera cam;
+    Score score;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
         cooldownTimer = balloonCooldown;
     }
 
@@ -51,6 +53,27 @@ public class HotAirBalloon : MonoBehaviour
             wb.transform.rotation = Quaternion.AngleAxis(angle, directionToPlayer.y > 0 ? Vector3.forward : -Vector3.forward);
             cooldownActive = true;
         }
-        
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Dart")
+        {
+            // Award player points
+            score.HotAirBalloonReward();
+
+            // Destroy the dart and water balloon
+            //TODO: waterBalloonSplashSound.Play();
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+        }
+        else if (col.gameObject.tag == "Player")
+        {
+            Debug.Log("PLAYER HotAirBalloon");
+            //TODO: waterBalloonSplashSound.Play();
+            
+            player.Kill();
+            Destroy(gameObject);
+        }
     }
 }

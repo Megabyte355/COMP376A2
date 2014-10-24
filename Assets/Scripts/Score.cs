@@ -5,9 +5,9 @@ public class Score : MonoBehaviour
 {
     Camera cam;
     [SerializeField]
-    int topOffSetPixels;
+    int topOffsetPixels;
     [SerializeField]
-    int leftOffSetPixels;
+    int leftOffsetPixels;
     [SerializeField]
     int pointsPerBallonPop;
     [SerializeField]
@@ -21,7 +21,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffSetPixels, Screen.height - topOffSetPixels, 10));
+        transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffsetPixels, Screen.height - topOffsetPixels, 10));
         textMesh = gameObject.GetComponent<TextMesh>();
     }
 

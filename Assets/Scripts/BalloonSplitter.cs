@@ -79,4 +79,24 @@ public class BalloonSplitter : MonoBehaviour
         // Play balloon burst sound
         balloonPopSound.Play();
     }
+
+    public void DestroyBalloon(BalloonAnchor anchor, Balloon affectedBalloon)
+    {
+        List<Balloon> list = anchor.GetBalloons();
+        if (list.Count > 1)
+        {
+            // Removed affected balloon
+            anchor.RemoveBalloon(affectedBalloon);
+            Destroy(affectedBalloon.gameObject);
+        }
+        else
+        {
+            // Destroy balloon and anchor
+            Destroy(anchor.gameObject);
+            Destroy(list[0].gameObject);
+            list.Clear();
+        }
+        progress.DecrementBalloonCount();
+        balloonPopSound.Play();
+    }
 }

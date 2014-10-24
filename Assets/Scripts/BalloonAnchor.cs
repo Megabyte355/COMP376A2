@@ -45,33 +45,16 @@ public class BalloonAnchor : MonoBehaviour
         return balloonList;
     }
 
-    //public void IncreaseSpeed()
-    //{
-    //    if (speed < maxSpeed)
-    //    {
-    //        // Calculates how much speed should be increased based on current size of balloonList
-    //        int iterations = 0;
-    //        float balloons = balloonList.Count;
-    //        while (balloons > 1)
-    //        {
-    //            balloons = balloons / 2;
-    //            iterations++;
-    //        }
-    //        if(iterations > 0)
-    //        {
-    //            float speedDiff = maxSpeed - speed;
-    //            float increase = speedDiff / iterations;
-    //            speed += increase;
-    //        }
-    //    }
-    //}
-
     // ------------------------ Delegates to BalloonSplitter ------------------------
     public void SplitBalloons(Vector3 impactDirection, Balloon affectedBalloon)
     {
         splitter.SplitBalloons(impactDirection, this, affectedBalloon);
     }
 
+    public void DestroyBalloon(Balloon affectedBalloon)
+    {
+        splitter.DestroyBalloon(this, affectedBalloon);
+    }
 
     // ------------------------ Delegates to LinearMovement ------------------------
     public float GetSpeed()

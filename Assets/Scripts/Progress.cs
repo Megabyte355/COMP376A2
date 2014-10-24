@@ -4,22 +4,19 @@ using System.Collections;
 public class Progress : MonoBehaviour
 {
     [SerializeField]
-    int topOffSetPixels;
+    int topOffsetPixels;
     [SerializeField]
-    int leftOffSetPixels;
+    int leftOffsetPixels;
     [SerializeField]
     int hotAirBalloonSpawnMargins;
     [SerializeField]
     GameObject hotAirBalloonPrefab;
 
     int progress = 0;
-    Camera cam;
-    TextMesh progressTextMesh;
-
-    //TextMesh victoryTextMesh;
-
     int currentBalloonCount;
     int totalBalloonCount;
+    Camera cam;
+    TextMesh progressTextMesh;
 
     // Checkpoints
     [SerializeField]
@@ -44,7 +41,7 @@ public class Progress : MonoBehaviour
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffSetPixels, Screen.height - topOffSetPixels, 10));
+        transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffsetPixels, Screen.height - topOffsetPixels, 10));
         progressTextMesh = gameObject.GetComponent<TextMesh>();
 
         totalBalloonCount = GameObject.FindGameObjectsWithTag("Balloon").Length;
@@ -72,6 +69,7 @@ public class Progress : MonoBehaviour
         if (!activatedSpeedUp && progress >= balloonSpeedUp)
         {
             activatedSpeedUp = true;
+
             // Speed up ballons
             GameObject[] anchors = GameObject.FindGameObjectsWithTag("BalloonAnchor");
             foreach (GameObject anchor in anchors)
@@ -81,16 +79,19 @@ public class Progress : MonoBehaviour
         }
         if (!activatedHotAir1 && progress >= hotAirBalloon1)
         {
+            // Spawn first hot hair balloon
             activatedHotAir1 = true;
             SpawnHotAirBalloon(CalculateSpawnPoint());
         }
         if (!activatedHotAir2 && progress >= hotAirBalloon2)
         {
+            // Spawn second hot hair balloon
             activatedHotAir2 = true;
             SpawnHotAirBalloon(CalculateSpawnPoint());
         }
         if (!activatedHotAir3 && progress >= hotAirBalloon3)
         {
+            // Spawn third hot hair balloon
             activatedHotAir3 = true;
             SpawnHotAirBalloon(CalculateSpawnPoint());
         }
