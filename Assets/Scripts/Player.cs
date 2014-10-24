@@ -13,5 +13,6 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         lifeCount.DecrementLives();
+        // TODO: Animate death
     }
 }
