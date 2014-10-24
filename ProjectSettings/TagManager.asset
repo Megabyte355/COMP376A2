@@ -42,10 +42,6 @@ TagManager:
   User Layer 30: 
   User Layer 31: 
   m_SortingLayers:
-  - name: Default
-    userID: 0
-    uniqueID: 0
-    locked: 0
   - name: Background
     userID: 1
     uniqueID: 16773905
@@ -69,4 +65,12 @@ TagManager:
   - name: Gun
     userID: 5
     uniqueID: 1457859061
+    locked: 0
+  - name: Default
+    userID: 0
+    uniqueID: 0
+    locked: 0
+  - name: 
+    userID: 7
+    uniqueID: 3145571487
     locked: 0
