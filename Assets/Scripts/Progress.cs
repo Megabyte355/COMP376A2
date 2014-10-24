@@ -112,9 +112,24 @@ public class Progress : MonoBehaviour
     void SpawnHotAirBalloon(Vector3 spawnPoint)
     {
         GameObject hotAirBalloon = Instantiate(hotAirBalloonPrefab, spawnPoint, Quaternion.identity) as GameObject;
+        LinearMovement hotAirBalloonMovement = hotAirBalloon.GetComponent<LinearMovement>();
         if (cam.WorldToScreenPoint(spawnPoint).x >= Screen.width)
         {
-            hotAirBalloon.GetComponent<LinearMovement>().direction = new Vector3(-1, 0, 0);
+            hotAirBalloonMovement.direction = new Vector3(-1, 0, 0);
         }
+        if (activatedSpeedUp)
+        {
+            hotAirBalloonMovement.IncreaseSpeed(speedUpAmount);
+        }
+    }
+
+    public bool IsSpeedUpActive()
+    {
+        return activatedSpeedUp;
+    }
+
+    public float GetSpeedUpAmount()
+    {
+        return speedUpAmount;
     }
 }

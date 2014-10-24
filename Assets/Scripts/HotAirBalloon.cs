@@ -16,12 +16,14 @@ public class HotAirBalloon : MonoBehaviour
     bool cooldownActive = false;
     Camera cam;
     Score score;
+    AudioSource waterBalloonSplashSound;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+        waterBalloonSplashSound = GameObject.Find("WaterBalloonSplashSound").GetComponent<AudioSource>();
         cooldownTimer = balloonCooldown;
     }
 
@@ -63,15 +65,13 @@ public class HotAirBalloon : MonoBehaviour
             score.HotAirBalloonReward();
 
             // Destroy the dart and water balloon
-            //TODO: waterBalloonSplashSound.Play();
+            waterBalloonSplashSound.Play();
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
         else if (col.gameObject.tag == "Player")
         {
-            Debug.Log("PLAYER HotAirBalloon");
-            //TODO: waterBalloonSplashSound.Play();
-            
+            waterBalloonSplashSound.Play();
             player.Kill();
             Destroy(gameObject);
         }
