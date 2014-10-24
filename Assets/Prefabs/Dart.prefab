@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368b493e2820f334cbf3e11ac78a4cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeSpan: 5
+  lifeSpan: 3
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayerID: 723543141
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f2a08c7cdfcd98e48b7a0be4189c0f74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

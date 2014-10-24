@@ -21,6 +21,10 @@ public class LinearMovement : MonoBehaviour
     {
         speed += speedIncrement;
     }
+    public void SetSpeed(float s)
+    {
+        speed = s;
+    }
 
     public void RotateDirection(float degrees)
     {

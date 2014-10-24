@@ -7,6 +7,7 @@ TagManager:
   - BalloonAnchor
   - Dart
   - Balloon
+  - WaterBalloon
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -44,4 +45,28 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: Background
+    userID: 1
+    uniqueID: 16773905
+    locked: 0
+  - name: Clouds
+    userID: 6
+    uniqueID: 978612687
+    locked: 0
+  - name: Balloons
+    userID: 2
+    uniqueID: 572173865
+    locked: 0
+  - name: Darts
+    userID: 3
+    uniqueID: 723543141
+    locked: 0
+  - name: Player
+    userID: 4
+    uniqueID: 4137511097
+    locked: 0
+  - name: Gun
+    userID: 5
+    uniqueID: 1457859061
     locked: 0
