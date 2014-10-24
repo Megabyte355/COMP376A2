@@ -11,17 +11,34 @@ public class Progress : MonoBehaviour
     int leftOffSetPixels;
 
     int progress = 0;
-    TextMesh textMesh;
+    TextMesh progressTextMesh;
+    //TextMesh victoryTextMesh;
+
+    int currentBalloonCount;
+    int totalBalloonCount;
 
     void Start()
     {
         transform.position = cam.ScreenToWorldPoint(new Vector3(leftOffSetPixels, Screen.height - topOffSetPixels, 10));
-        textMesh = gameObject.GetComponent<TextMesh>();
+        progressTextMesh = gameObject.GetComponent<TextMesh>();
+
+        totalBalloonCount = GameObject.FindGameObjectsWithTag("Balloon").Length;
+        currentBalloonCount = totalBalloonCount;
     }
 
     void Update()
     {
-        textMesh.text = "Progress: " + progress + "%";
+        progress = (int)(((float)currentBalloonCount / (float)totalBalloonCount) * 100f);
+        progressTextMesh.text = "Progress: " + (100 - progress) + "%";
     }
 
+    public void DecrementBalloonCount()
+    {
+        currentBalloonCount -= 1;
+        if(currentBalloonCount == 0)
+        {
+            // YOU WIN!!!
+        }
+
+    }
 }

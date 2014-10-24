@@ -9,6 +9,12 @@ public class Score : MonoBehaviour
     int topOffSetPixels;
     [SerializeField]
     int leftOffSetPixels;
+    [SerializeField]
+    int pointsPerBallonPop;
+    [SerializeField]
+    int pointsPerBalloonSplit;
+    [SerializeField]
+    int pointsPerHotAirBalloon;
 
     int score = 0;
     TextMesh textMesh;
@@ -27,5 +33,20 @@ public class Score : MonoBehaviour
     public void AddPoints(int pts)
     {
         score += pts;
+    }
+
+    public void BalloonPopReward()
+    {
+        AddPoints(pointsPerBallonPop);
+    }
+
+    public void BalloonSplitReward()
+    {
+        AddPoints(pointsPerBalloonSplit);
+    }
+
+    public void HotAirBalloonReward()
+    {
+        AddPoints(pointsPerHotAirBalloon);
     }
 }
