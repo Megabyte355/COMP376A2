@@ -20,6 +20,9 @@ public class PlayerControls : MonoBehaviour
             dartGun.FireDart();
         }
 
-        // TODO: Fire2 for special mode
+        if (Input.GetButton("Fire2"))
+        {
+            dartGun.FireSpecial();
+        }
     }
 }

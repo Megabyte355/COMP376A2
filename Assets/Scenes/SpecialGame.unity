@@ -12209,6 +12209,10 @@ Prefab:
       propertyPath: blowSound
       value: 
       objectReference: {fileID: 858528007}
+    - target: {fileID: 11400004, guid: 295511b7386207d41806d234941a54a4, type: 2}
+      propertyPath: specialEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295511b7386207d41806d234941a54a4, type: 2}
   m_RootGameObject: {fileID: 1646070874}
@@ -14206,7 +14210,7 @@ MonoBehaviour:
   dartSpawnOffset: 1
   dartCooldown: .349999994
   specialCooldown: 3
-  specialEnabled: 0
+  specialEnabled: 1
 --- !u!4 &1973219178
 Transform:
   m_ObjectHideFlags: 0

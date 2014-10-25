@@ -11,9 +11,16 @@ public class DartGun : MonoBehaviour
     float dartSpawnOffset = 1.0f;
     [SerializeField]
     float dartCooldown = 0.5f;
+    [SerializeField]
+    float specialCooldown = 3f;
+    [SerializeField]
+    bool specialEnabled = false;
+
     float cooldownTimer;
+    float specialCooldownTimer;
     float angle;
     bool cooldownActive = false;
+    bool specialCooldownActive = false;
     Camera cam;
 
     void Start()
@@ -38,6 +45,17 @@ public class DartGun : MonoBehaviour
                 cooldownTimer = dartCooldown;
             }
         }
+        
+        // Calculate special cooldown
+        if(specialCooldownActive && specialEnabled)
+        {
+            specialCooldownTimer -= Time.deltaTime;
+            if(specialCooldownTimer < 0f)
+            {
+                specialCooldownActive = false;
+                specialCooldownTimer = specialCooldown;
+            }
+        }
     }
 
     public void FireDart()
@@ -48,6 +66,20 @@ public class DartGun : MonoBehaviour
             cooldownActive = true;
             Vector3 dartSpawn = transform.position + transform.right * dartSpawnOffset;
             Instantiate(dartPrefab, dartSpawn, transform.rotation);
+            blowSound.Play();
+        }
+    }
+
+    public void FireSpecial()
+    {
+        if (!specialCooldownActive && specialEnabled)
+        {
+            specialCooldownActive = true;
+            Vector3 dartSpawn = transform.position + transform.right * dartSpawnOffset;
+            Vector3 specialSpawn = transform.position + transform.right;
+            Instantiate(dartPrefab, dartSpawn, transform.rotation);
+            GameObject special = Instantiate(dartPrefab, specialSpawn, transform.rotation) as GameObject;
+            special.GetComponent<LinearMovement>().RotateDirection(180);
             blowSound.Play();
         }
     }
