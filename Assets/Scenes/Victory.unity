@@ -174,7 +174,7 @@ GameObject:
   - 23: {fileID: 739855820}
   - 102: {fileID: 739855819}
   m_Layer: 0
-  m_Name: GameOver
+  m_Name: Victory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 739855818}
-  m_Text: GAME OVER
+  m_Text: YOU WIN!!!
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
