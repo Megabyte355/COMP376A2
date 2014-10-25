@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         lifeCount.DecrementLives();
+        if(lifeCount.IsGameOver())
+        {
+            Application.LoadLevel("GameOver");
+        }
         ChangeState(PlayerState.DYING);
     }
 
@@ -40,7 +44,6 @@ public class Player : MonoBehaviour
         if(timer >= 0f)
         {
             // Handle respawn timing
-            Debug.Log(timer);
             timer -= Time.deltaTime;
             if (timer < 0f && state == PlayerState.RESPAWNING)
             {
